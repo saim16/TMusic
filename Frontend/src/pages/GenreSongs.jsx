@@ -24,7 +24,7 @@ const GenreSongs = () => {
     const getSongsByGenre = async (currentPage) => {
         try {
             setLoading(true);
-            const response = await axios.get(`http://localhost:3000/api/browse/genres/${genreName}?page=${currentPage}`, {
+            const response = await axios.get(`https://tmusic-9k3n.onrender.com/api/browse/genres/${genreName}?page=${currentPage}`, {
                 withCredentials: true
             });
 

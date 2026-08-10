@@ -19,7 +19,7 @@ export const UserProvider = ({ children }) => {
 
     const fetchUser = async () => {
         try {
-            const response = await axios.get("http://localhost:3000/user/get-user", {
+            const response = await axios.get("https://tmusic-9k3n.onrender.com/user/get-user", {
                 withCredentials: true
             });
 
@@ -64,7 +64,7 @@ export const UserProvider = ({ children }) => {
         );
 
         try {
-            const response = await axios.post(`http://localhost:3000/stream/save/${songId}`, {}, {
+            const response = await axios.post(`https://tmusic-9k3n.onrender.com/stream/save/${songId}`, {}, {
                 withCredentials: true
             });
 
@@ -98,7 +98,7 @@ export const UserProvider = ({ children }) => {
         );
 
         try {
-            const response = await axios.patch(`http://localhost:3000/api/browse/profile/${artistId}/follow`, {}, {
+            const response = await axios.patch(`https://tmusic-9k3n.onrender.com/api/browse/profile/${artistId}/follow`, {}, {
                 withCredentials: true
             });
 
@@ -114,7 +114,7 @@ export const UserProvider = ({ children }) => {
 
     const playSong = async (songId) => {
         try {
-            const response = await axios.get(`http://localhost:3000/stream/play/${songId}`, {
+            const response = await axios.get(`https://tmusic-9k3n.onrender.com/stream/play/${songId}`, {
                 withCredentials: true
             });
 

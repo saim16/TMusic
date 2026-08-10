@@ -44,7 +44,7 @@ const UploadSong = () => {
         formData.append('songImage', songImage);
 
         try {
-            const response = await axios.post("http://localhost:3000/artist/publish-song", formData,
+            const response = await axios.post("https://tmusic-9k3n.onrender.com/artist/publish-song", formData,
                 {
                     headers: { 'Content-Type': 'multipart/form-data' },
                     withCredentials: true

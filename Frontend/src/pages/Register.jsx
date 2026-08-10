@@ -42,7 +42,7 @@ const Register = () => {
 
         try {
             const response = await axios.post(
-                "http://localhost:3000/auth/send-otp",
+                "https://tmusic-9k3n.onrender.com/auth/send-otp",
                 { username, email },
                 { withCredentials: true }
             );
@@ -87,7 +87,7 @@ const Register = () => {
             }
 
             const response = await axios.post(
-                "http://localhost:3000/auth/register",
+                "https://tmusic-9k3n.onrender.com/auth/register",
                 formData,
                 {
                     headers: { 'Content-Type': 'multipart/form-data' },

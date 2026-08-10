@@ -22,7 +22,7 @@ const ArtistPage = () => {
         try {
             setLoading(true);
 
-            const res = await axios.get(`http://localhost:3000/api/browse/profile/${artistId}`, { withCredentials: true });
+            const res = await axios.get(`https://tmusic-9k3n.onrender.com/api/browse/profile/${artistId}`, { withCredentials: true });
 
             if (res.data.success) {
                 setArtist(res.data.artist);

@@ -32,7 +32,7 @@ const AllArtists = () => {
     const getArtists = async (currentPage) => {
         try {
             setLoading(true);
-            const response = await axios.get(`http://localhost:3000/api/browse/all-artists?page=${currentPage}`, {
+            const response = await axios.get(`https://tmusic-9k3n.onrender.com/api/browse/all-artists?page=${currentPage}`, {
                 withCredentials: true
             });
 
@@ -57,7 +57,7 @@ const AllArtists = () => {
 
     const handleArtistClick = async (artistId) => {
         try {
-            await axios.get(`http://localhost:3000/api/browse/profile/${artistId}`, {
+            await axios.get(`https://tmusic-9k3n.onrender.com/api/browse/profile/${artistId}`, {
                 withCredentials: true
             });
             navigate(`/browse/profile/${artistId}`);

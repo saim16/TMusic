@@ -25,7 +25,7 @@ const ArtistSongs = () => {
     const getSongs = async (currentPage) => {
         try {
             setLoading(true);
-            const response = await axios.get(`http://localhost:3000/api/browse/profile/${artistId}/songs?page=${currentPage}`, {
+            const response = await axios.get(`https://tmusic-9k3n.onrender.com/api/browse/profile/${artistId}/songs?page=${currentPage}`, {
                 withCredentials: true
             });
 
@@ -59,7 +59,7 @@ const ArtistSongs = () => {
 
     const handleSongClick = async (songId) => {
         // try {
-        //     await axios.get(`http://localhost:3000/api/browse/song/${songId}`, {
+        //     await axios.get(`https://tmusic-9k3n.onrender.com/api/browse/song/${songId}`, {
         //         withCredentials: true
         //     });
         //     navigate(`/browse/song/${songId}`);

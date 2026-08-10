@@ -17,7 +17,7 @@ const Analytics = () => {
     const getTop50Songs = async () => {
         try {
             setLoading(true);
-            const response = await axios.get(`http://localhost:3000/user/analytics`, {
+            const response = await axios.get(`https://tmusic-9k3n.onrender.com/user/analytics`, {
                 withCredentials: true
             });
 

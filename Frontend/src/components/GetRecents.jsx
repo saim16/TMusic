@@ -17,7 +17,7 @@ const GetRecents = () => {
 
     const getRecents = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/stream/recents`, {
+            const response = await axios.get(`https://tmusic-9k3n.onrender.com/stream/recents`, {
                 withCredentials: true
             });
 

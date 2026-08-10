@@ -16,7 +16,7 @@ const GetTopArtists = () => {
 
     const getTopArtists = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/api/browse/top-artists`,
+            const response = await axios.get(`https://tmusic-9k3n.onrender.com/api/browse/top-artists`,
                 { withCredentials: true }
             );
 
@@ -39,7 +39,7 @@ const GetTopArtists = () => {
 
     const handleArtistClick = async (artistId) => {
         // try {
-        //     await axios.get(`http://localhost:3000/api/browse/profile/${artistId}`, {
+        //     await axios.get(`https://tmusic-9k3n.onrender.com/api/browse/profile/${artistId}`, {
         //         withCredentials: true
         //     });
         navigate(`/browse/profile/${artistId}`);

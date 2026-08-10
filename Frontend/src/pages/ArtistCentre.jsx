@@ -11,7 +11,7 @@ const ArtistCentre = () => {
     const [error, setError] = useState(null);
 
     const getTotalStreams = async () => {
-        const response = await axios.get("http://localhost:3000/artist/total-streams", {
+        const response = await axios.get("https://tmusic-9k3n.onrender.com/artist/total-streams", {
             withCredentials: true
         });
 
@@ -20,7 +20,7 @@ const ArtistCentre = () => {
     };
 
     const getPopularSongs = async () => {
-        const response = await axios.get("http://localhost:3000/artist/popular-songs", {
+        const response = await axios.get("https://tmusic-9k3n.onrender.com/artist/popular-songs", {
             withCredentials: true
         });
 

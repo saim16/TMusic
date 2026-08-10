@@ -2,7 +2,7 @@ require('dotenv').config();
 const nodemailer = require('nodemailer');
 const dns = require('dns');
 
-console.log("Email User Loaded:", process.env.EMAIL_USER ? "YES" : "NO");
+console.log("Email client id:", process.env.CLIENT_ID);
 
 dns.setDefaultResultOrder('ipv4first');
 

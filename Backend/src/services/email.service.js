@@ -2,29 +2,26 @@ require('dotenv').config();
 const nodemailer = require('nodemailer');
 const dns = require('dns');
 
-console.log("Email client id:", process.env.CLIENT_ID);
-
+// Force IPv4 on Render to prevent network timeouts
 dns.setDefaultResultOrder('ipv4first');
 
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 587,
-    secure: false,
-    family: 4,
+    secure: false, // TLS
+    family: 4,     // Force IPv4
     auth: {
-        type: 'OAuth2',
         user: process.env.EMAIL_USER,
-        clientId: process.env.CLIENT_ID,
-        clientSecret: process.env.CLIENT_SECRET,
-        refreshToken: process.env.REFRESH_TOKEN,
+        pass: process.env.EMAIL_PASS, // 16-character App Password
     },
 });
 
+// Immediate feedback log
 transporter.verify((error, success) => {
     if (error) {
-        console.error('Error connecting to email server:', error);
+        console.error('❌ EMAIL CONNECTION ERROR:', error.message);
     } else {
-        console.log('Email server is ready to send messages');
+        console.log('🚀 EMAIL SERVER IS READY TO SEND MESSAGES!');
     }
 });
 

@@ -41,6 +41,7 @@ const sendEmail = async (to, subject, html) => {
 };
 
 async function sendRegistrationEmail(email, name) {
+
     const subject = "Welcome to TMusic – Let's get the music started! 🎵";
     const html = `
     <!DOCTYPE html>
@@ -91,8 +92,9 @@ async function sendRegistrationEmail(email, name) {
 }
 
 async function sendEmailOTP(email, username, otp) {
-    const subject = `${otp} is your TMusic verification code`;
-    const html = `
+    try {
+        const subject = `${otp} is your TMusic verification code`;
+        const html = `
     <!DOCTYPE html>
     <html>
     <head>
@@ -154,7 +156,10 @@ async function sendEmailOTP(email, username, otp) {
     </body>
     </html>`;
 
-    await sendEmail(email, subject, html);
+        await sendEmail(email, subject, html);
+    } catch (err) {
+        console.log("error while sending otp ", err);
+    }
 }
 
 

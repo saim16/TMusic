@@ -1,0 +1,43 @@
+.artist-centre-component {
+    /* height: 15vh; */
+    background: rgb(114 0 255 / 11%);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 18px;
+    /* display: flex; */
+    /* align-items: center; */
+    justify-content: center;
+    box-shadow: 0 4px 12px rgb(59 32 170 / 30%);
+    padding: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+
+.go-to-upload-song {
+    font-family: var(--heading-font);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 14px 20px;
+    width: 100%;
+    background: var(--accent-gradient);
+    border: none;
+    border-radius: 12px;
+    color: #ffffff;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 14px rgba(110, 86, 207, 0.35);
+}
+
+.go-to-upload-song:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(110, 86, 207, 0.5);
+}
+
+.artist-centre-component-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}

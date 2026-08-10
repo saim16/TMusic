@@ -2,6 +2,8 @@ require('dotenv').config();
 const nodemailer = require('nodemailer');
 const dns = require('dns');
 
+console.log("Email User Loaded:", process.env.EMAIL_USER ? "YES" : "NO");
+
 dns.setDefaultResultOrder('ipv4first');
 
 const transporter = nodemailer.createTransport({

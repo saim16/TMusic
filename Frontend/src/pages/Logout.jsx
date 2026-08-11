@@ -21,9 +21,11 @@ const Logout = () => {
             console.error("Logout failed:", error);
         }
     };
+
+    handleLogout();
     return (
         <div>
-
+            <h1>Logging you out....</h1>
         </div>
     )
 }

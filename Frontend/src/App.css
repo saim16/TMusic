@@ -55,11 +55,12 @@ body {
 }
 
 img.user-image {
-  width: 40px;
+  border: 1px solid #ffffffb3;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.7);
-
+  width: 40px;
+  aspect-ratio: 1 / 1;
   padding: 2px;
+  object-fit: cover;
 }
 
 h3.user-name {
@@ -181,12 +182,13 @@ form.auth-form-login {
 }
 
 img.user-image-preview {
-  width: 100%;
-  border-radius: 50%;
   object-fit: cover;
   background-color: var(--input-bg);
-  border: 2px dashed rgba(255, 255, 255, 0.2);
-  transition: all 0.2s ease;
+  border: 2px dashed #fff3;
+  border-radius: 50%;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  transition: all .2s;
 }
 
 

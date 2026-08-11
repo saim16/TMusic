@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
+import { useUser } from '../Context/UserContext';
 
 const Register = () => {
     const navigate = useNavigate();
+    const { setUser } = useUser();
 
     // form elements
     const [name, setName] = useState('');
@@ -97,6 +99,8 @@ const Register = () => {
 
             if (response.data.success) {
                 setMessage('Account created successfully!');
+                setUser(response.data.user);
+
                 setTimeout(() => {
                     navigate('/', { replace: true });
                 }, 1500);

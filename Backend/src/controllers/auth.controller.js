@@ -196,9 +196,11 @@ async function loginUser(req, res) {
         role: getUser.role
     }, process.env.JWT_SECRET, { expiresIn: '3d' });
 
-    res.cookie("token", token, {
+    res.cookie('token', token, {
         httpOnly: true,
-        sameSite: 'lax',
+        secure: true,
+        sameSite: 'none',
+        maxAge: 24 * 60 * 60 * 1000
     });
 
     res.status(200).json({

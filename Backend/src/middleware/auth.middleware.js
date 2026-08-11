@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 async function checkIfUserIsAnArtist(req, res, next) {
     const token = req.cookies?.token || req.headers.authorization?.split(" ")[1];
 
-    if(!token) {
+    if (!token) {
         return res.status(401).json({
             message: "Token not found.",
             success: false
@@ -13,7 +13,7 @@ async function checkIfUserIsAnArtist(req, res, next) {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        if(decoded.role !== "Artist") {
+        if (decoded.role !== "Artist") {
             return res.status(401).json({
                 message: "Unauthorised Access.",
                 success: false
@@ -34,7 +34,7 @@ async function checkIfUserIsAnArtist(req, res, next) {
 async function checkIfValidToken(req, res, next) {
     const token = req.cookies?.token || req.headers.authorization?.split(" ")[1];
 
-    if(!token) {
+    if (!token) {
         return res.status(401).json({
             message: "Token not found.",
             success: false
@@ -43,13 +43,6 @@ async function checkIfValidToken(req, res, next) {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        if(decoded.role !== "Artist" && decoded.role !== "User") {
-            return res.status(401).json({
-                message: "Unauthorised Access.",
-                success: false
-            });
-        }
-
         req.user = decoded;
 
         next();
@@ -62,4 +55,4 @@ async function checkIfValidToken(req, res, next) {
 }
 
 
-module.exports = {checkIfUserIsAnArtist, checkIfValidToken};
+module.exports = { checkIfUserIsAnArtist, checkIfValidToken };

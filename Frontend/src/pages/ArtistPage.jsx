@@ -7,7 +7,7 @@ import './ArtistPage.css'
 const ArtistPage = () => {
     const { artistId } = useParams();
     const navigate = useNavigate();
-    const { isFollowing, toggleFollowArtist, isSaved, toggleSaveSong, playSong } = useUser();
+    const { isFollowing, toggleFollowArtist, isSaved, toggleSaveSong, playSong, playSongFromList } = useUser();
 
     const [artist, setArtist] = useState(null);
     const [songs, setSongs] = useState([]);
@@ -101,7 +101,7 @@ const ArtistPage = () => {
 
                             return (
                                 <div key={song._id} className="song-card">
-                                    <div className="song-image-div" onClick={(e) => playSong(song._id)}>
+                                    <div className="song-image-div" onClick={(e) => playSongFromList(song, songs)}>
                                         <img
                                             src={song.songImageUrl}
                                             alt={song.songTitle}

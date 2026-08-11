@@ -29,5 +29,12 @@ router.post('/register', preAuthMiddlware.tokenExists, upload.single('userimage'
  */
 router.post('/login', preAuthMiddlware.tokenExists, authController.loginUser);
 
+/**
+ * @route   POST /api/auth/logout
+ * @desc    Logout
+ * @access  Public (Blocked if already logged in)
+ */
+router.post('/logout', authController.logoutUser);
+
 
 module.exports = router;

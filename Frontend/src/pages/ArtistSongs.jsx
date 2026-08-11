@@ -49,7 +49,7 @@ const ArtistSongs = () => {
         }
     };
 
-    const { isSaved, toggleSaveSong, playSong } = useUser();
+    const { isSaved, toggleSaveSong, playSong, playSongFromList } = useUser();
     if (!isSaved || !toggleSaveSong) {
         return <h3>Loading...</h3>
     }
@@ -86,7 +86,7 @@ const ArtistSongs = () => {
                                 key={song._id}
                                 className="song-card"
                             >
-                                <div className="song-image-div" onClick={(e) => playSong(song._id)}>
+                                <div className="song-image-div" onClick={(e) => playSongFromList(song, songs)}>
                                     <img
                                         src={song.songImageUrl}
                                         alt={song.songTitle}

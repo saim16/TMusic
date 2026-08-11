@@ -8,9 +8,13 @@ export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [following, setFollowing] = useState([]);
     const [savedSongs, setSavedSongs] = useState([]);
+    const [queue, setQueue] = useState([]);
     const [currSong, setCurrSong] = useState(null);
+    const [currQueueIndex, setCurrQueueIndex] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
     const [isArtist, setIsArtist] = useState(false);
+
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -112,6 +116,16 @@ export const UserProvider = ({ children }) => {
         }
     };
 
+    const playSongFromList = (clickedSong, songs) => {
+        setQueue(songs);
+
+        const clickedSongIndex = songs.findIndex(song => song._id === clickedSong._id);
+        if (clickedSongIndex === -1) return;
+
+        setCurrQueueIndex(clickedSongIndex);
+        playSong(clickedSong._id);
+    };
+
     const playSong = async (songId) => {
         try {
             const response = await axios.get(`https://tmusic-9k3n.onrender.com/stream/play/${songId}`, {
@@ -122,17 +136,44 @@ export const UserProvider = ({ children }) => {
                 setCurrSong(response.data.song);
                 setIsPlaying(true);
             }
-
         } catch (err) {
-            console.error("Error toggling follow artist:", err);
-            fetchUser();
+            console.error("Error playing song:", err);
         }
-    }
+    };
 
     const togglePlayPause = () => {
         if (!currSong) return;
         setIsPlaying(prev => !prev);
     };
+
+    const handleSongEnd = () => {
+        const nextIndex = currQueueIndex + 1;
+        if (nextIndex >= queue.length) {
+            setIsPlaying(false);
+            setCurrSong(null)
+            return;
+        }
+
+        setCurrQueueIndex(currQueueIndex + 1);
+        const nextSong = queue[nextIndex];
+        playSong(nextSong._id);
+    };
+
+    const playPrevSong = (currSongId) => {
+        let prevIndex = currQueueIndex - 1;
+        if (prevIndex < 0) {
+            prevIndex++;
+        }
+        else {
+            setCurrQueueIndex(currQueueIndex - 1);
+        }
+        if (queue.length === 0) {
+            playSong(currSongId);
+            return;
+        }
+        const prevSong = queue[prevIndex];
+        playSong(prevSong._id);
+    }
 
     return (
         <UserContext.Provider value={{
@@ -149,7 +190,11 @@ export const UserProvider = ({ children }) => {
             playSong,
             isPlaying,
             currSong,
-            togglePlayPause
+            togglePlayPause,
+            playSongFromList,
+            handleSongEnd,
+            playPrevSong,
+            currQueueIndex
         }}>
             {children}
         </UserContext.Provider>

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
+import { useUser } from '../Context/UserContext';
 
 const Login = () => {
     const navigate = useNavigate();
+    const { setUser } = useUser();
 
     // form elements
     const [username, setUserName] = useState('');
@@ -33,6 +35,7 @@ const Login = () => {
 
             if (response.data.success) {
                 setMessage('Logged in successfully!');
+                setUser(response.data.user);
                 setTimeout(() => {
                     navigate('/', { replace: true });
                 }, 1500);

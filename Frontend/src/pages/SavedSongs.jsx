@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useUser } from '../Context/UserContext'
 
 const SavedSongs = () => {
-    const { isSaved, toggleSaveSong, savedSongs, playSong } = useUser();
+    const { isSaved, toggleSaveSong, savedSongs, playSong, playSongFromList } = useUser();
     if (!savedSongs) {
         return (
             <div className="page">
@@ -25,7 +25,7 @@ const SavedSongs = () => {
 
                         return (
                             <div key={songId} className="song-card">
-                                <div className="song-image-div" onClick={(e) => playSong(song._id)}>
+                                <div className="song-image-div" onClick={(e) => playSongFromList(song, savedSongs)}>
                                     <img
                                         src={song.songImageUrl}
                                         alt={song.songTitle}

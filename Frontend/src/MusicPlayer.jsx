@@ -4,7 +4,7 @@ import './MusicPlayer.css'
 import { Link } from 'react-router-dom'
 
 const MusicPlayer = () => {
-    const { currSong, isPlaying, togglePlayPause, setIsPlaying } = useUser();
+    const { currSong, isPlaying, togglePlayPause, setIsPlaying, queue, handleSongEnd, playPrevSong, currQueueIndex } = useUser();
 
     const audioRef = useRef(null);
     const [currentTime, setCurrentTime] = useState(0);
@@ -56,7 +56,7 @@ const MusicPlayer = () => {
                 src={currSong.songUrl}
                 onTimeUpdate={handleTimeUpdate}
                 onLoadedMetadata={handleLoadedMetadata}
-                onEnded={() => setIsPlaying(false)}
+                onEnded={handleSongEnd}
             />
 
             <div className="player-left">
@@ -73,7 +73,23 @@ const MusicPlayer = () => {
 
             <div className="player-center">
                 <div className="player-controls">
-                    <button className="play-pause-btn" onClick={togglePlayPause}>
+                    <button className="prev-btn control-btn" onClick={() => {
+                        if (currQueueIndex === 0) {
+                            if (audioRef.current) {
+                                audioRef.current.currentTime = 0;
+                                audioRef.current.play();
+                            }
+                            return;
+                        }
+                        playPrevSong(currSong._id)
+
+                    }}>
+                        <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M18 5v14l-11-7zm-11 0v14H5V5z" />
+                        </svg>
+
+                    </button>
+                    <button className="play-pause-btn control-btn" onClick={togglePlayPause}>
                         {isPlaying ? (
                             /* Pause Icon */
                             <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
@@ -85,6 +101,14 @@ const MusicPlayer = () => {
                                 <path d="M8 5v14l11-7z" />
                             </svg>
                         )}
+
+
+
+                    </button>
+                    <button className="next-btn control-btn" onClick={handleSongEnd}>
+                        <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M6 5v14l11-7zm11 0v14h2V5z" />
+                        </svg>
                     </button>
                 </div>
 

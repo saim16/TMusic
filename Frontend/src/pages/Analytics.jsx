@@ -37,7 +37,7 @@ const Analytics = () => {
         }
     };
 
-    const { isSaved, toggleSaveSong, playSong } = useUser();
+    const { isSaved, toggleSaveSong, playSong, playSongFromList } = useUser();
     if (!isSaved || !toggleSaveSong) {
         return <h3>Loading...</h3>
     }
@@ -61,7 +61,7 @@ const Analytics = () => {
                                 key={item.song._id}
                                 className="song-card"
                             >
-                                <div className="song-image-div" onClick={(e) => playSong(item.song._id)}>
+                                <div className="song-image-div" onClick={() => playSongFromList(item.song, songs.map(i => i.song))}>
                                     <img
                                         src={item.song.songImageUrl}
                                         alt={item.song.songTitle}

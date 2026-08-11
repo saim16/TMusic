@@ -689,7 +689,8 @@ p.song-artist {
 }
 
 .genre-grid::-webkit-scrollbar-track,
-.artist-grid-home-page::-webkit-scrollbar-track .song-grid-home-page::-webkit-scrollbar-track {
+.artist-grid-home-page::-webkit-scrollbar-track,
+.song-grid-home-page::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.04);
   border-radius: 100px;
 }

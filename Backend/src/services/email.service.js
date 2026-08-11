@@ -1,47 +1,41 @@
 require('dotenv').config();
-const nodemailer = require('nodemailer');
-
-
-const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false, // TLS
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS, // 16-character App Password
-    },
-    tls: {
-        rejectUnauthorized: false,
-        ciphers: "SSLv3",
-    }
-});
-
-// Immediate feedback log
-transporter.verify((error, success) => {
-    if (error) {
-        console.error('❌ EMAIL CONNECTION ERROR:', error.message);
-    } else {
-        console.log('🚀 EMAIL SERVER IS READY TO SEND MESSAGES!');
-    }
-});
-
 
 const sendEmail = async (to, subject, html) => {
     try {
-        const info = await transporter.sendMail({
-            from: `"TMusic" <${process.env.EMAIL_USER}>`, // sender address
-            to, // list of receivers
-            subject, // Subject line
-            html, // html body
+        const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+            method: 'POST',
+            headers: {
+                'accept': 'application/json',
+                'api-key': process.env.BREVO_API_KEY,
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify({
+                sender: {
+                    name: 'TMusic',
+                    email: process.env.VERIFIED_SENDER_EMAIL
+                },
+                to: [{ email: to }],
+                subject: subject,
+                htmlContent: html,
+            }),
         });
 
+        const data = await response.json();
+
+        if (!response.ok) {
+            console.error('❌ Brevo API Error:', data);
+            throw new Error(data.message || 'Failed to send email');
+        }
+
+        console.log('🚀 Email sent successfully via Brevo API!');
+        return data;
     } catch (error) {
         console.error('Error sending email:', error);
+        throw error;
     }
 };
 
 async function sendRegistrationEmail(email, name) {
-
     const subject = "Welcome to TMusic – Let's get the music started! 🎵";
     const html = `
     <!DOCTYPE html>
@@ -55,13 +49,11 @@ async function sendRegistrationEmail(email, name) {
             <tr>
                 <td align="center">
                     <table role="presentation" width="100%" style="max-width: 500px; background-color: #1e293b; border-radius: 12px; border: 1px solid #334155; overflow: hidden; padding: 32px; text-align: left;">
-                        <!-- Header / Logo -->
                         <tr>
                             <td align="center" style="padding-bottom: 24px;">
                                 <h1 style="margin: 0; font-size: 28px; font-weight: 800; color: #38bdf8; letter-spacing: -0.5px;">TMusic</h1>
                             </td>
                         </tr>
-                        <!-- Content -->
                         <tr>
                             <td>
                                 <h2 style="margin: 0 0 16px 0; font-size: 20px; font-weight: 600; color: #ffffff;">Welcome aboard, ${name}! 🎉</h2>
@@ -73,7 +65,6 @@ async function sendRegistrationEmail(email, name) {
                                 </p>
                             </td>
                         </tr>
-                        <!-- Footer -->
                         <tr>
                             <td style="border-top: 1px solid #334155; padding-top: 20px; text-align: center;">
                                 <p style="margin: 0; font-size: 12px; color: #64748b;">
@@ -106,13 +97,11 @@ async function sendEmailOTP(email, username, otp) {
             <tr>
                 <td align="center">
                     <table role="presentation" width="100%" style="max-width: 500px; background-color: #1e293b; border-radius: 12px; border: 1px solid #334155; overflow: hidden; padding: 32px; text-align: left;">
-                        <!-- Header / Logo -->
                         <tr>
                             <td align="center" style="padding-bottom: 24px;">
                                 <h1 style="margin: 0; font-size: 28px; font-weight: 800; color: #38bdf8; letter-spacing: -0.5px;">TMusic</h1>
                             </td>
                         </tr>
-                        <!-- Content -->
                         <tr>
                             <td>
                                 <h2 style="margin: 0 0 12px 0; font-size: 18px; font-weight: 600; color: #ffffff;">Verify Your Account ${username}</h2>
@@ -121,7 +110,6 @@ async function sendEmailOTP(email, username, otp) {
                                 </p>
                             </td>
                         </tr>
-                        <!-- OTP Box -->
                         <tr>
                             <td align="center" style="padding: 10px 0 24px 0;">
                                 <div style="background-color: #0f172a; border: 1px dashed #0284c7; border-radius: 8px; padding: 16px 24px; display: inline-block; letter-spacing: 6px; font-size: 28px; font-weight: 700; color: #38bdf8;">
@@ -129,7 +117,6 @@ async function sendEmailOTP(email, username, otp) {
                                 </div>
                             </td>
                         </tr>
-                        <!-- Expiration Note -->
                         <tr>
                             <td>
                                 <p style="margin: 0 0 20px 0; font-size: 13px; color: #f43f5e; font-weight: 500;">
@@ -140,7 +127,6 @@ async function sendEmailOTP(email, username, otp) {
                                 </p>
                             </td>
                         </tr>
-                        <!-- Footer -->
                         <tr>
                             <td style="border-top: 1px solid #334155; padding-top: 20px; text-align: center;">
                                 <p style="margin: 0; font-size: 12px; color: #64748b;">
@@ -158,9 +144,8 @@ async function sendEmailOTP(email, username, otp) {
 
         await sendEmail(email, subject, html);
     } catch (err) {
-        console.log("error while sending otp ", err);
+        console.error("Error while sending OTP:", err);
     }
 }
-
 
 module.exports = { sendRegistrationEmail, sendEmailOTP };

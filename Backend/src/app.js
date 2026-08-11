@@ -15,7 +15,7 @@ const cookieParser = require('cookie-parser');
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: 'https://t-music-oo2j2i0f4-saim16-1982s-projects.vercel.app',
+    origin: 'https://t-music-snowy.vercel.app',
     credentials: true
 }));
 

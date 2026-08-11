@@ -15,6 +15,7 @@ import MusicPlayer from './MusicPlayer'
 import ArtistCentre from './pages/ArtistCentre'
 import UploadSong from './pages/UploadSong'
 import { useUser } from './Context/UserContext'
+import Logout from './pages/Logout'
 
 
 const App = () => {
@@ -49,6 +50,7 @@ const App = () => {
         <Route path='/login' element=<Login /> />
 
         <Route path="/" element=<Home /> />
+        <Route path="/logout" element=<Logout /> />
         <Route path="/all-artists" element=<AllArtists /> />
         <Route path="/browse/genres/:genreName" element=<GenreSongs /> />
         <Route path="/browse/profile/:artistId" element=<ArtistPage /> />

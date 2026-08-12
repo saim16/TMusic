@@ -53,9 +53,7 @@ const UploadSong = () => {
 
             if (response.data.success) {
                 setMessage('Song Published successfully!');
-                setTimeout(() => {
-                    navigate('/', { replace: true });
-                }, 1500);
+                navigate('/', { replace: true });
             }
         } catch (error) {
             if (error.response.status === 401) {

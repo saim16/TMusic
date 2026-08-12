@@ -26,10 +26,13 @@ const Login = () => {
 
         setLoading(true);
 
+        const isEmail = username.includes('@') && username.includes('.com');
+        const payload = isEmail ? { email: username.trim(), password } : { username: username.trim(), password };
+
         try {
             const response = await axios.post(
                 "https://tmusic-9k3n.onrender.com/auth/login",
-                { username, password },
+                payload,
                 { withCredentials: true }
             );
 
@@ -40,7 +43,7 @@ const Login = () => {
             }
         } catch (error) {
 
-            if (error.response.data.message === "You are already logged in") {
+            if (error.response?.data?.message === "You are already logged in") {
                 navigate('/', { replace: true });
             }
 

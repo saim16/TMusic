@@ -101,9 +101,7 @@ const Register = () => {
                 setMessage('Account created successfully!');
                 setUser(response.data.user);
 
-                setTimeout(() => {
-                    navigate('/', { replace: true });
-                }, 1500);
+                navigate('/', { replace: true });
             }
         } catch (error) {
             setMessage(error.response?.data?.message || 'Registration failed. Please try again.');

@@ -36,9 +36,7 @@ const Login = () => {
             if (response.data.success) {
                 setMessage('Logged in successfully!');
                 setUser(response.data.user);
-                setTimeout(() => {
-                    navigate('/', { replace: true });
-                }, 1500);
+                navigate('/', { replace: true });
             }
         } catch (error) {
 

@@ -21,6 +21,15 @@ export const UserProvider = ({ children }) => {
         fetchUser();
     }, []);
 
+    useEffect(() => {
+        if (user?.role === "Artist") {
+            setIsArtist(true);
+        }
+        else {
+            setIsArtist(false);
+        }
+    }, [user]);
+
     const fetchUser = async () => {
         try {
             const response = await axios.get("https://tmusic-9k3n.onrender.com/user/get-user", {
@@ -32,9 +41,9 @@ export const UserProvider = ({ children }) => {
                 setUser(fetchedUser);
                 setFollowing(response.data.user.following || []);
                 setSavedSongs(response.data.user.savedSongs || []);
-                if (fetchedUser.role == "Artist") {
-                    setIsArtist(true);
-                }
+                // if (fetchedUser.role == "Artist") {
+                //     setIsArtist(true);
+                // }
             }
             return response.data.user;
 
